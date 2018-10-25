@@ -47,11 +47,11 @@ export class IgorService {
   }
 
   public static getJobConfig(master: string, job: string): IPromise<IJobConfig> {
-    return API.one('v2')
+    return API.one('v3')
       .one('builds')
       .one(master)
-      .one('jobs')
-      .one(job)
+      .one('job')
+      .withParams({ job: job })
       .get();
   }
 }
