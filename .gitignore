@@ -30,6 +30,7 @@ npm-debug.log
 **/build/
 **/dist/
 **/yarn-error.log
+**/yarn.lock
 
 # Test Results
 test-results.xml
