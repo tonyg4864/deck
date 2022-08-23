@@ -37,6 +37,7 @@ module(CORE_PIPELINE_CONFIG_STAGES_MANUALJUDGMENT_MANUALJUDGMENTSTAGE, [])
       $scope.authEnabled = SETTINGS.authEnabled;
       $scope.stage.notifications = $scope.stage.notifications || [];
       $scope.stage.judgmentInputs = $scope.stage.judgmentInputs || [];
+      $scope.stage.judgmentFreeformInputs = $scope.stage.judgmentFreeformInputs || [];
       $scope.stage.failPipeline = $scope.stage.failPipeline === undefined ? true : $scope.stage.failPipeline;
 
       this.transformToNewStyleIfNecessary = function (notifications) {
@@ -68,6 +69,18 @@ module(CORE_PIPELINE_CONFIG_STAGES_MANUALJUDGMENT_MANUALJUDGMENTSTAGE, [])
 
       this.removeJudgmentInput = function (idx) {
         $scope.stage.judgmentInputs.splice(idx, 1);
+      };
+
+      this.addJudgmentFreeformInput = function () {
+        if (!$scope.stage.judgmentFreeformInputs) {
+          $scope.stage.judgmentFreeformInputs = {};
+        }
+        const judgmentFreeformInput = new Map();
+        $scope.stage.judgmentFreeformInputs.push(judgmentFreeformInput);
+      };
+
+      this.removeJudgmentFreeformInput = function (idx) {
+        $scope.stage.judgmentFreeformInputs.splice(idx, 1);
       };
 
       this.updateNotifications = function (notifications) {

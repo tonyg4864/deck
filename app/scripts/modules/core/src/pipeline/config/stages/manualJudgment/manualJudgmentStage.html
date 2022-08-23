@@ -53,6 +53,49 @@
         </tr>
       </tfoot>
     </table>
+    <table class="table table-condensed packed">
+      <thead>
+        <tr>
+          <th style="width: 30%">Key</th>
+          <th style="width: 30%">Value</th>
+          <th class="text-right">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr ng-repeat="judgmentInput in stage.judgmentFreeformInputs track by $index">
+          <td>
+            <input
+              type="text"
+              required
+              ng-model="judgmentInput.key"
+              value="{{judgmentInput.key}}"
+              class="form-control input-sm"
+            />
+          </td>
+          <td>
+            <input
+              type="text"
+              required
+              ng-model="judgmentInput.value"
+              value="{{judgmentInput.value}}"
+              class="form-control input-sm"
+            />
+          </td>
+          <td class="text-right">
+            <a class="small" href ng-click="manualJudgmentStageCtrl.removeJudgmentFreeformInput($index)">Remove</a>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="7">
+            <button class="btn btn-block btn-sm add-new" ng-click="manualJudgmentStageCtrl.addJudgmentFreeformInput()">
+              <span class="glyphicon glyphicon-plus-sign"></span> Add judgment freeform input
+            </button>
+          </td>
+        </tr>
+      </tfoot>
+    </table>
   </stage-config-field>
   <stage-config-field label="Send Notifications">
     <div class="checkbox">

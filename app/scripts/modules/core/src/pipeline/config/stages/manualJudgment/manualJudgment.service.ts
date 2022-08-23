@@ -14,13 +14,14 @@ export class ManualJudgmentService {
     stage: IExecutionStage,
     judgmentStatus: string,
     judgmentInput?: string,
+    judgmentFreeformInput?: string,
   ): PromiseLike<void> {
     const matcher = (result: IExecution) => {
       const match = result.stages.find((test) => test.id === stage.id);
       return match && match.status !== 'RUNNING';
     };
     return this.executionService
-      .patchExecution(execution.id, stage.id, { judgmentStatus, judgmentInput })
+      .patchExecution(execution.id, stage.id, { judgmentStatus, judgmentInput, judgmentFreeformInput })
       .then(() => this.executionService.waitUntilExecutionMatches(execution.id, matcher))
       .then((updated) => this.executionService.updateExecution(application, updated));
   }

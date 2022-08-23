@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import Select, { Option } from 'react-select';
 
 import { Application } from 'core/application/application.model';
@@ -18,6 +18,7 @@ export interface IManualJudgmentApprovalState {
   submitting: boolean;
   judgmentDecision: string;
   judgmentInput: { value?: string };
+  judgmentFreeformInput: { value?: string };
   applicationRoles: { READ?: string[]; WRITE?: string[]; EXECUTE?: string[]; CREATE?: string[] };
   userRoles: string[];
   error: boolean;
@@ -33,6 +34,7 @@ export class ManualJudgmentApproval extends React.Component<
       submitting: false,
       judgmentDecision: null,
       judgmentInput: {},
+      judgmentFreeformInput: {},
       applicationRoles: {},
       userRoles: [],
       error: false,
@@ -56,8 +58,18 @@ export class ManualJudgmentApproval extends React.Component<
   private provideJudgment(judgmentDecision: string): void {
     const { application, execution, stage } = this.props;
     const judgmentInput: string = this.state.judgmentInput ? this.state.judgmentInput.value : null;
+    const judgmentFreeformInput: string = this.state.judgmentFreeformInput
+      ? this.state.judgmentFreeformInput.value
+      : null;
     this.setState({ submitting: true, error: false, judgmentDecision });
-    ReactInjector.manualJudgmentService.provideJudgment(application, execution, stage, judgmentDecision, judgmentInput);
+    ReactInjector.manualJudgmentService.provideJudgment(
+      application,
+      execution,
+      stage,
+      judgmentDecision,
+      judgmentInput,
+      judgmentFreeformInput,
+    );
   }
 
   private isManualJudgmentStageNotAuthorized(): boolean {
@@ -96,6 +108,10 @@ export class ManualJudgmentApproval extends React.Component<
 
   private handleJudgementChanged = (option: Option): void => {
     this.setState({ judgmentInput: { value: option.value as string } });
+  };
+
+  private handleFreeformInputChanged = (inputEvent: ChangeEvent<HTMLInputElement>): void => {
+    this.setState({ judgmentFreeformInput: { value: inputEvent.target.value } });
   };
 
   private handleContinueClick = (): void => {
@@ -142,6 +158,19 @@ export class ManualJudgmentApproval extends React.Component<
                   clearable={false}
                   value={this.state.judgmentInput.value}
                   onChange={this.handleJudgementChanged}
+                />
+              </div>
+            )}
+            {options.length > 0 && (
+              <div>
+                <p>
+                  <b>Judgment Metadata</b>
+                </p>
+                <b>{stage.context.judgmentFreeformInputs[0].key} </b>
+                <input
+                  type="text"
+                  value={this.state.judgmentFreeformInput.value}
+                  onChange={this.handleFreeformInputChanged}
                 />
               </div>
             )}
