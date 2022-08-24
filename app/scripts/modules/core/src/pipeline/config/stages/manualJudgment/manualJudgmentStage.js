@@ -73,7 +73,7 @@ module(CORE_PIPELINE_CONFIG_STAGES_MANUALJUDGMENT_MANUALJUDGMENTSTAGE, [])
 
       this.addJudgmentFreeformInput = function () {
         if (!$scope.stage.judgmentFreeformInputs) {
-          $scope.stage.judgmentFreeformInputs = {};
+          $scope.stage.judgmentFreeformInputs = [];
         }
         const judgmentFreeformInput = new Map();
         $scope.stage.judgmentFreeformInputs.push(judgmentFreeformInput);

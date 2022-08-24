@@ -166,7 +166,7 @@ export class ManualJudgmentApproval extends React.Component<
                 <p>
                   <b>Judgment Metadata</b>
                 </p>
-                <b>{stage.context.judgmentFreeformInputs[0].key} </b>
+                <b>{stage.context.judgmentFreeformInputs[0].value} </b>
                 <input
                   type="text"
                   value={this.state.judgmentFreeformInput.value}
