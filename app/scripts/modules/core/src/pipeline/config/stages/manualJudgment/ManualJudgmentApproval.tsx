@@ -130,6 +130,12 @@ export class ManualJudgmentApproval extends React.Component<
       return { value: o.value, label: o.value };
     });
 
+    const inputMetadata: HTMLInputElement[] = (stage.context.judgmentFreeformInputs || []).map(
+      (i: { value: string }) => {
+        return { value: i.value, label: i.value };
+      },
+    );
+
     const showOptions =
       !['SKIPPED', 'SUCCEEDED'].includes(status) && (!stage.context.judgmentStatus || status === 'RUNNING');
 
@@ -161,12 +167,12 @@ export class ManualJudgmentApproval extends React.Component<
                 />
               </div>
             )}
-            {options.length > 0 && (
+            {inputMetadata.length > 0 && (
               <div>
+                <br />
                 <p>
-                  <b>Judgment Metadata</b>
+                  <b>{stage.context.judgmentFreeformInputs[0].value}</b>
                 </p>
-                <b>{stage.context.judgmentFreeformInputs[0].value} </b>
                 <input
                   type="text"
                   value={this.state.judgmentFreeformInput.value}
