@@ -188,7 +188,8 @@ export class ManualJudgmentApproval extends React.Component<
                   this.isManualJudgmentStageNotAuthorized() ||
                   this.state.submitting ||
                   stage.context.judgmentStatus ||
-                  (options.length && !this.state.judgmentInput.value)
+                  (options.length && !this.state.judgmentInput.value) ||
+                  (inputMetadata.length && !this.state.judgmentFreeformInput.value)
                 }
               >
                 {this.isSubmitting('stop') && <ButtonBusyIndicator />}
@@ -200,7 +201,8 @@ export class ManualJudgmentApproval extends React.Component<
                   this.isManualJudgmentStageNotAuthorized() ||
                   this.state.submitting ||
                   stage.context.judgmentStatus ||
-                  (options.length && !this.state.judgmentInput.value)
+                  (options.length && !this.state.judgmentInput.value) ||
+                  (inputMetadata.length && !this.state.judgmentFreeformInput.value)
                 }
                 onClick={this.handleContinueClick}
               >
