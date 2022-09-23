@@ -373,7 +373,7 @@ export class Execution extends React.PureComponent<IExecutionProps, IExecutionSt
     });
 
     const hasParentExecution = !!execution.trigger?.parentExecution;
-
+    const enablePauseButton = false;
     return (
       <div className={className} id={`execution-${execution.id}`} ref={this.wrapperRef}>
         <div className={`execution-overview group-by-${sortFilter.groupBy}`}>
@@ -461,7 +461,7 @@ export class Execution extends React.PureComponent<IExecutionProps, IExecutionSt
             </div>
           </div>
           <div className="execution-actions">
-            {execution.isRunning && (
+            {execution.isRunning && enablePauseButton && (
               <Tooltip value="Pause execution">
                 <button className="link" onClick={this.handlePauseClick}>
                   <i className="fa fa-pause" />
